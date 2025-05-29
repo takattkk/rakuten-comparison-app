@@ -86,6 +86,6 @@ def generate_html(products: list) -> str:
     return html
     
 if st.button("HTML記事として出力"):
-    html_content = generate_html(product_list)  # ← product_listは商品情報一覧
+    html_content = generate_html(products)  # ← productsは商品情報一覧
     st.markdown("### 💾 コピーしてブログに貼り付けてください")
     st.code(html_content, language='html')
