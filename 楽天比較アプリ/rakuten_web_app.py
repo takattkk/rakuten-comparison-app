@@ -72,3 +72,20 @@ if st.button("比較記事を生成"):
 
         st.markdown("---")
         st.download_button("📄 Markdown記事をダウンロード", data=output_md, file_name="rakuten_summary.md", mime="text/markdown")
+
+def generate_html(products: list) -> str:
+    html = "<h2>楽天商品比較まとめ</h2>\n"
+    for product in products:
+        html += f"""
+        <div style="margin-bottom: 20px;">
+            <h3><a href="{product['url']}" target="_blank">{product['title']}</a></h3>
+            <p>価格: {product['price']}</p>
+            <p>レビュー: {product['review_avg']} ({product['review_count']}件)</p>
+        </div>
+        """
+    return html
+    
+if st.button("HTML記事として出力"):
+    html_content = generate_html(product_list)  # ← product_listは商品情報一覧
+    st.markdown("### 💾 コピーしてブログに貼り付けてください")
+    st.code(html_content, language='html')
