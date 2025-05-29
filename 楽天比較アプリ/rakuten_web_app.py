@@ -50,6 +50,7 @@ if st.button("比較記事を生成"):
     if not urls:
         st.warning("URLを入力してください")
     else:
+        products = []  # ← ここで空リスト作成
         output_md = "# 📦 楽天市場 商品比較まとめ\n\n"
 
         for idx, url in enumerate(urls, 1):
@@ -70,8 +71,24 @@ if st.button("比較記事を生成"):
             output_md += f"- ⭐ 評価: {data['review']} / 5.0（{data['count']}件）\n"
             output_md += f"- ![商品画像]({data['image']})\n\n"
 
+            # ← ここでproductsに追加
+            products.append({
+                "title": data['title'],
+                "price": f"¥{data['price']:,}",
+                "review_avg": data['review'],
+                "review_count": data['count'],
+                "image": data['image'],
+                "url": data['url']
+            })
+
         st.markdown("---")
         st.download_button("📄 Markdown記事をダウンロード", data=output_md, file_name="rakuten_summary.md", mime="text/markdown")
+
+        # HTML出力ボタンを比較記事生成ボタンの中に入れてしまうのがおすすめ
+        if st.button("HTML記事として出力"):
+            html_content = generate_html(products)
+            st.markdown("### 💾 コピーしてブログに貼り付けてください")
+            st.code(html_content, language='html')
 
 def generate_html(products: list) -> str:
     html = "<h2>楽天商品比較まとめ</h2>\n"
@@ -84,8 +101,3 @@ def generate_html(products: list) -> str:
         </div>
         """
     return html
-    
-if st.button("HTML記事として出力"):
-    html_content = generate_html(products)  # ← productsは商品情報一覧
-    st.markdown("### 💾 コピーしてブログに貼り付けてください")
-    st.code(html_content, language='html')
