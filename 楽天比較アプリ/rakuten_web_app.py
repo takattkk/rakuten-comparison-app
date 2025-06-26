@@ -50,10 +50,20 @@ def generate_html(products: list) -> str:
     html = "<h2>楽天商品比較まとめ</h2>\n"
     for product in products:
         html += f"""
-        <div style="margin-bottom: 20px;">
-            <h3><a href="{product['url']}" target="_blank">{product['title']}</a></h3>
-            <p>価格: {product['price']}</p>
-            <p>レビュー: {product['review_avg']}（{product['review_count']}件）</p>
+        <div style="border: 1px solid #ccc; border-radius: 12px; padding: 16px; margin-bottom: 24px; display: flex; gap: 16px;">
+          <img src="{product['image']}" alt="{product['title']}" style="width: 150px; height: auto; border-radius: 8px;" />
+          <div style="flex: 1;">
+            <h3 style="margin-top: 0;">
+              <a href="{product['url']}" target="_blank" style="text-decoration: none; color: #0074c2;">
+                {product['title']}
+              </a>
+            </h3>
+            <p style="margin: 4px 0;">💴 <strong>{product['price']}</strong></p>
+            <p style="margin: 4px 0;">⭐ {product['review_avg']} / 5.0（{product['review_count']}件）</p>
+            <a href="{product['url']}" target="_blank" style="display: inline-block; margin-top: 8px; padding: 8px 16px; background-color: #ff6600; color: white; text-decoration: none; border-radius: 6px;">
+              ▶ 今すぐチェック
+            </a>
+          </div>
         </div>
         """
     return html
