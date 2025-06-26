@@ -96,4 +96,4 @@ if st.button("比較記事を生成"):
                 continue
 
             st.subheader(f"{idx}. {data['title']}")
-            st.image(data["im]()
+            st.image(data["image"], width=200)
