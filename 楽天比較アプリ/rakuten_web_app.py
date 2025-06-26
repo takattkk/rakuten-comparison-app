@@ -1,6 +1,5 @@
 import streamlit as st
 import requests
-import re
 
 # ✅ あなたの楽天アプリIDに置き換えてください
 application_id = "1089430039707781272"
@@ -37,7 +36,7 @@ def get_item_data(url):
         return {"error": str(e)}
 
 # -------------------------------
-# 📝 HTML出力関数
+# 📝 HTML出力関数（クリックされやすいデザイン）
 # -------------------------------
 def generate_html(products: list) -> str:
     html = "<h2>楽天商品比較まとめ</h2>\n"
@@ -104,7 +103,7 @@ if st.button("比較記事を生成"):
                 "url": data['url']
             })
 
-        # ✅ セッションに保存
+        # セッションに保存
         st.session_state["products"] = products
         st.session_state["output_md"] = output_md
 
@@ -117,4 +116,3 @@ if "products" in st.session_state and st.session_state["products"]:
         html_content = generate_html(st.session_state["products"])
         st.markdown("### 💾 コピーしてブログに貼り付けてください")
         st.code(html_content, language="html")
-
