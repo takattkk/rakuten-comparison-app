@@ -9,18 +9,11 @@ application_id = "1089430039707781272"
 # -------------------------------
 def get_item_data(url):
     try:
-        m = re.search(r'rakuten\.co\.jp/([^/]+)/([^/?#]+)', url)
-        if not m:
-            return {"error": "URLからitemCodeを抽出できませんでした"}
-
-        shop_id = m.group(1)
-        item_id = m.group(2)
-        item_code = f"{shop_id}:{item_id}"
-
-        api_url = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706"
+        # ItemLookup API を使用
+        api_url = "https://app.rakuten.co.jp/services/api/IchibaItem/ItemLookup/20170426"
         params = {
             "applicationId": application_id,
-            "itemCode": item_code,
+            "itemUrl": url,
             "format": "json"
         }
         res = requests.get(api_url, params=params)
