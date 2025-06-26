@@ -78,6 +78,8 @@ if st.button("比較記事を生成"):
 
         for idx, url in enumerate(urls, 1):
             data = get_item_data(url)
+            st.write(f"🔍 {idx}番目の商品API応答:", data)
+            
             if "error" in data:
                 st.error(f"{idx}. 取得エラー: {data['error']}")
                 output_md += f"## {idx}. 取得エラー\n- URL: {url}\n- ⚠️ エラー: {data['error']}\n\n"
