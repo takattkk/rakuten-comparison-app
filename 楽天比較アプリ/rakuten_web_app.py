@@ -18,7 +18,8 @@ def get_item_data(url):
         item_id = m.group(2)
         item_code = f"{shop_id}:{item_id}"
 
-        api_url = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706"
+        # ✅ 正しいAPIに変更（ItemCodeSearch）
+        api_url = "https://app.rakuten.co.jp/services/api/IchibaItem/ItemCodeSearch/20170628"
         params = {
             "applicationId": application_id,
             "itemCode": item_code,
